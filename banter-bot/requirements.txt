@@ -1,0 +1,16 @@
+# Core Dependencies
+google-generativeai>=0.3.0        # Gemini API
+google-cloud-texttospeech>=2.14.0  # Google Cloud TTS
+google-cloud-speech>=2.20.0        # Google Cloud STT
+
+# Audio Processing
+pyaudio>=0.2.13                    # Microphone input
+pydub>=0.25.1                      # Audio manipulation
+sounddevice>=0.4.6                 # Audio playback
+
+# Configuration & Environment
+python-dotenv>=1.0.0               # Environment variable management
+pyyaml>=6.0                        # YAML config parsing
+
+# Utilities
+colorama>=0.4.6                    # Terminal colors for better UX

@@ -1,0 +1,33 @@
+# Environment and credentials
+.env*
+*.json
+!config/personas/*.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Audio files (temporary recordings)
+temp_audio/
+*.wav
+*.mp3
+
+# Logs
+*.log
+logs/
+
+# OS
+.DS_Store
+Thumbs.db
