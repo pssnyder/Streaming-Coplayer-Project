@@ -19,14 +19,14 @@ class LLMClient:
         
         genai.configure(api_key=self.api_key)
         
-        # Using Gemini 1.5 Flash for fast, conversational responses
-        self.model = genai.GenerativeModel('gemini-2.0-flash-exp')
+        # Using Gemini 2.5 Flash for fast, conversational responses
+        self.model = genai.GenerativeModel('gemini-2.5-flash')
         
         self.generation_config = {
             'temperature': 0.9,  # Higher for more creative/varied responses
             'top_p': 0.95,
             'top_k': 40,
-            'max_output_tokens': 100,  # Short responses only
+            'max_output_tokens': 250,  # Allow longer responses (1-3 sentences)
         }
     
     def generate_response(

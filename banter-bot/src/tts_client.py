@@ -63,16 +63,46 @@ class TTSClient:
     def play_audio(self, audio_data: bytes):
         """
         Play audio data through default output device
-        Uses pydub and simpleaudio for playback
+        Uses pygame for reliable cross-platform playback
         """
         try:
-            from pydub import AudioSegment
-            from pydub.playback import play
+            import pygame
+            from io import BytesIO
             
-            # Convert bytes to AudioSegment
-            audio = AudioSegment.from_mp3(io.BytesIO(audio_data))
-            play(audio)
+            # Initialize pygame mixer if not already initialized
+            if not pygame.mixer.get_init():
+                pygame.mixer.init()
             
+            # Load and play audio
+            audio_file = BytesIO(audio_data)
+            pygame.mixer.music.load(audio_file)
+            pygame.mixer.music.play()
+            
+            # Wait for playback to finish
+            while pygame.mixer.music.get_busy():
+                pygame.time.Clock().tick(10)
+            
+        except ImportError:
+            print("pygame not installed. Installing alternative method...")
+            # Fallback: save to temp file and use OS to play
+            import tempfile
+            import subprocess
+            
+            with tempfile.NamedTemporaryFile(delete=False, suffix='.mp3') as f:
+                f.write(audio_data)
+                temp_path = f.name
+            
+            try:
+                # Windows: use built-in player
+                subprocess.run(['powershell', '-c', f'(New-Object Media.SoundPlayer "{temp_path}").PlaySync()'], 
+                             check=False, capture_output=True)
+            finally:
+                import os
+                try:
+                    os.unlink(temp_path)
+                except:
+                    pass
+                    
         except Exception as e:
             print(f"Error playing audio: {e}")
     
